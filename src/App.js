@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Typography from "@material-ui/core/Typography";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
@@ -42,7 +43,7 @@ function App() {
   }
   return (
     <div className="App">
-      <header className="App-header">
+      <Typography style={{ padding: 16 }} variant="h1">
         <p>Todo List</p>
         <TodoForm addTodo={addTodo} />
         <TodoList
@@ -50,7 +51,7 @@ function App() {
           toggleCompleted={toggleCompleted}
           removeTodo={removeTodo}
         />
-      </header>
+      </Typography>
     </div>
   );
 }
