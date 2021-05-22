@@ -1,13 +1,21 @@
 import React from "react";
 import { Checkbox, IconButton, ListItem, Typography } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import { TodoInterface } from "../todo.model";
 
-export default function Todo({ todo, toggleCompleted, removeTodo }) {
+interface TodoProps {
+  todo: TodoInterface,
+  toggleCompleted: (id: string) => void,
+  removeTodo: (id: string) => void
+}
+
+ const Todo: React.FC<TodoProps> = ({ todo, toggleCompleted, removeTodo }) => {
+
   function handleCheckboxClick() {
     toggleCompleted(todo.id);
   }
 
-  function handleRemoveButton(id) {
+  function handleRemoveButton() {
     removeTodo(todo.id);
   }
 
@@ -16,9 +24,6 @@ export default function Todo({ todo, toggleCompleted, removeTodo }) {
       <Checkbox checked={todo.completed} onClick={handleCheckboxClick} />
       <Typography
         variant="body1"
-        style={{
-          textDecoration: todo.completed ? "line-through" : null,
-        }}
       >
         {todo.task}
       </Typography>
@@ -28,3 +33,5 @@ export default function Todo({ todo, toggleCompleted, removeTodo }) {
     </ListItem>
   );
 }
+
+export default Todo
