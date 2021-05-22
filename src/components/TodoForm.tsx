@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Button, TextField } from "@material-ui/core";
+import { TodoInterface } from "../todo.model";
 
-export default function TodoForm({ addTodo }) {
-  const [todo, setTodo] = useState({
+type TodoFormProps = {
+  addTodo: (todo: TodoInterface) => void;
+}
+
+const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
+  const [todo, setTodo] = useState<TodoInterface>({
     id: "",
     task: "",
     completed: false,
   });
 
-  function handleTaskInputChange(e) {
+  function handleTaskInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTodo({ ...todo, task: e.target.value });
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (todo.task.trim()) {
       addTodo({ ...todo, id: uuidv4() });
@@ -32,3 +37,5 @@ export default function TodoForm({ addTodo }) {
     </form>
   );
 }
+
+export default TodoForm

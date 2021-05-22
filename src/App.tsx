@@ -3,14 +3,19 @@ import Typography from "@material-ui/core/Typography";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
+import { TodoInterface } from "./todo.model";
 
-const LOCAL_STORAGE_KEY = "react-todo-list-todos";
 
-function App() {
-  const [todos, setTodos] = useState([]);
+
+const LOCAL_STORAGE_KEY: string = "react-todo-list-todos";
+
+const App: React.FC = () =>  {
+  const [todos, setTodos] = useState<TodoInterface[]>([]);
 
   useEffect(() => {
-    const storageTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    const localTodo: string | null = localStorage.getItem(LOCAL_STORAGE_KEY)
+    
+    const storageTodos = localTodo !== null ? JSON.parse(localTodo) : undefined;
     if (storageTodos) {
       setTodos(storageTodos);
     }
@@ -20,11 +25,11 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
 
-  function addTodo(todo) {
+  function addTodo(todo: TodoInterface) {
     setTodos([todo, ...todos]);
   }
 
-  function toggleCompleted(id) {
+  function toggleCompleted(id: string) {
     setTodos(
       todos.map((todo) => {
         if (todo.id === id) {
@@ -38,7 +43,7 @@ function App() {
     );
   }
 
-  function removeTodo(id) {
+  function removeTodo(id: string) {
     setTodos(todos.filter((todo) => todo.id !== id));
   }
   return (

@@ -1,7 +1,15 @@
 import React from "react";
 import { List } from "@material-ui/core";
 import Todo from "./Todo";
-export default function TodoList({ todos, toggleCompleted, removeTodo }) {
+import { TodoInterface } from "../todo.model";
+
+interface TodoListProps {
+  todos: TodoInterface[],
+  toggleCompleted: (id: string) => void,
+  removeTodo: (id: string) => void
+}
+
+ const TodoList: React.FC<TodoListProps> = ({ todos, toggleCompleted, removeTodo }) => {
   return (
     <List className="list">
       {todos.map((todo) => (
@@ -15,3 +23,5 @@ export default function TodoList({ todos, toggleCompleted, removeTodo }) {
     </List>
   );
 }
+
+export default TodoList
